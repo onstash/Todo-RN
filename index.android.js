@@ -32,6 +32,16 @@ export default class Todo extends Component {
     this.setState({ todos: updatedTodos });
   }
 
+  deleteTodo(data) {
+    const updatedTodos = [];
+    this.state.todos.map(todo => {
+      if (todo.id !== data.id) {
+        updatedTodos.push(todo);
+      }
+    });
+    this.setState({ todos: updatedTodos });
+  }
+
   addToDo() {
     const { text, todos } = this.state;
     if (!text) {
@@ -82,6 +92,7 @@ export default class Todo extends Component {
                 key={ index }
                 style={ styles.todo }
                 onPress={ () => this.toggleTodo(todo) }
+                onLongPress={ () => this.deleteTodo(todo) }>
                 { todo.task } ({ todo.done ? 'Finished': 'Not finished' })
               </Text>
             );
