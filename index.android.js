@@ -16,8 +16,11 @@ import {
 
 
 export default class Todo extends Component {
-  onPress(data) {
+  toggleTodo(data) {
     data.done = !data.done;
+    if (data.done) {
+      data.completedAt = new Date();
+    }
     const updatedTodos = [];
     this.state.todos.map(todo => {
       if (todo.id == data.id) {
@@ -75,7 +78,10 @@ export default class Todo extends Component {
         {
           this.state.todos.map((todo, index) => {
             return (
-              <Text key={ index } style={ styles.todo } onPress={ () => this.onPress(todo) }>
+              <Text
+                key={ index }
+                style={ styles.todo }
+                onPress={ () => this.toggleTodo(todo) }
                 { todo.task } ({ todo.done ? 'Finished': 'Not finished' })
               </Text>
             );
