@@ -13,12 +13,28 @@ import {
 } from 'react-native';
 
 export default class Todo extends Component {
+  constructor() {
+    super();
+    this.state = {
+      todos: [
+        {
+          task: 'Learn React Native', createdAt: new Date()
+        },
+        {
+          task: 'Build Todo app', createdAt: new Date()
+        }
+      ]
+    };
+  }
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
           Welcome to my Todo app!
         </Text>
+        {
+          this.state.todos.map((todo, index) => <Text key={ index } style={ styles.welcome }>{ todo.task }</Text>) 
+        }
       </View>
     );
   }
