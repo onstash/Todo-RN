@@ -6,6 +6,7 @@ import {
   TextInput,
   Button
 } from 'react-native';
+import { saveDataInStorage, loadDataFromStorage } from '../utils/storage';
 
 
 export default class Todo extends Component {
@@ -22,7 +23,9 @@ export default class Todo extends Component {
         updatedTodos.push(todo);
       }
     });
-    this.setState({ todos: updatedTodos });
+    saveDataInStorage('todos', updatedTodos).then(() => {
+      this.setState({ todos: updatedTodos });
+    });
   }
 
   deleteTodo(data) {
@@ -32,7 +35,9 @@ export default class Todo extends Component {
         updatedTodos.push(todo);
       }
     });
-    this.setState({ todos: updatedTodos });
+    saveDataInStorage('todos', updatedTodos).then(() => {
+      this.setState({ todos: updatedTodos });
+    });
   }
 
   addToDo() {
@@ -46,22 +51,28 @@ export default class Todo extends Component {
       createdAt: new Date()
     };
     const updatedTodos = [].concat(todos, [todo]);
-    this.setState({ todos: updatedTodos, text: '' });
+    saveDataInStorage('todos', updatedTodos).then(() => {
+      this.setState({ todos: updatedTodos, text: '' });
+    });
   }
 
   constructor() {
     super();
-    this.state = {
-      text: '',
-      todos: [
-        {
-          task: 'Learn React Native', createdAt: new Date(), id: 0
-        },
-        {
-          task: 'Build Todo app', createdAt: new Date(), id: 1
-        }
-      ]
-    };
+    const initialTodosState = [
+      {
+        task: 'Learn React Native', createdAt: new Date(), id: 0
+      },
+      {
+        task: 'Build Todo app', createdAt: new Date(), id: 1
+      }
+    ];
+    this.state = { text: '', todos: initialTodosState };
+    loadDataFromStorage('todos').then(data => {
+      const { messages } = this.state;
+      if (data !== null) {
+        this.setState({ todos: JSON.parse(data) });
+      }
+    });
   }
   render() {
     return (
@@ -103,14 +114,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
   welcome: {
-    fontSize: 30,
+    fontSize: 25,
     textAlign: 'center'
   },
-  button: {
-    padding: 10
-  },
   todo: {
-    fontSize: 20,
+    fontSize: 15,
     textAlign: 'center'
   }
 });
