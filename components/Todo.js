@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import {
-  AsyncStorage,
   StyleSheet,
   Text,
   View,
   TextInput,
   Button
 } from 'react-native';
+import { saveDataInStorage, loadDataFromStorage } from '../utils/storage';
 
 
 export default class Todo extends Component {
@@ -23,7 +23,7 @@ export default class Todo extends Component {
         updatedTodos.push(todo);
       }
     });
-    AsyncStorage.setItem('todos', JSON.stringify(updatedTodos)).then(() => {
+    saveDataInStorage('todos', updatedTodos).then(() => {
       this.setState({ todos: updatedTodos });
     });
   }
@@ -35,7 +35,7 @@ export default class Todo extends Component {
         updatedTodos.push(todo);
       }
     });
-    AsyncStorage.setItem('todos', JSON.stringify(updatedTodos)).then(() => {
+    saveDataInStorage('todos', updatedTodos).then(() => {
       this.setState({ todos: updatedTodos });
     });
   }
@@ -51,7 +51,7 @@ export default class Todo extends Component {
       createdAt: new Date()
     };
     const updatedTodos = [].concat(todos, [todo]);
-    AsyncStorage.setItem('todos', JSON.stringify(updatedTodos)).then(() => {
+    saveDataInStorage('todos', updatedTodos).then(() => {
       this.setState({ todos: updatedTodos, text: '' });
     });
   }
@@ -67,7 +67,7 @@ export default class Todo extends Component {
       }
     ];
     this.state = { text: '', todos: initialTodosState };
-    AsyncStorage.getItem('todos').then(data => {
+    loadDataFromStorage('todos').then(data => {
       const { messages } = this.state;
       if (data !== null) {
         this.setState({ todos: JSON.parse(data) });
