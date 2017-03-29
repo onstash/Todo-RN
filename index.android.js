@@ -3,7 +3,20 @@
  * https://github.com/facebook/react-native
  * @flow
  */
+ import React from 'react';
 import { AppRegistry } from 'react-native';
-import Todo from './components/Todo';
+import TodoContainer from './components/Todo';
+import { connect, Provider } from 'react-redux';
+import { createStore } from 'redux';
+import appReducers from './redux';
 
-AppRegistry.registerComponent('Todo', () => Todo);
+
+const TodoApp = () => {
+  return (
+    <Provider store={ createStore(appReducers, {}) }>
+      <TodoContainer />
+    </Provider>
+  );
+};
+
+AppRegistry.registerComponent('Todo', () => TodoApp);
