@@ -155,7 +155,6 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   let { text, todos } = state;
-  todos = todos || [];
   return { text, todos };
 };
 
