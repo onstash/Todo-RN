@@ -71,46 +71,18 @@ class TodoContainer extends Component {
   // }
   render() {
     const { text, todos } = this.props;
-    // return (
-    //   <View style={styles.container}>
-    //     <Text style={styles.welcome}>
-    //       Welcome to my Todo app!
-    //     </Text>
-    //     <TextInput
-    //       placeholder="Type here to add todo"
-    //       onChangeText={ onChangeTextHandler(text) }>
-    //       { text }
-    //     </TextInput>
-    //     <Button
-    //       onPress={ onClickToggle(text) }
-    //       title="Add"
-    //     />
-    //     {
-    //       todos.map((todo, index) => {
-    //         return (
-    //           <Text
-    //             key={ index }
-    //             style={ styles.todo }
-    //             onPress={ onPressToggle(todo) }
-    //             onLongPress={ onLongPressToggle(todo) }>
-    //             { todo.task } ({ todo.done ? 'Finished': 'Not finished' })
-    //           </Text>
-    //         );
-    //       })
-    //     }
-    //   </View>
-    // );
-
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
           Welcome to my Todo app!
         </Text>
         <TextInput
-          placeholder="Type here to add todo">
+          placeholder="Type here to add todo"
+          onChangeText={ () => onChangeTextHandler(text) }>
           { text }
         </TextInput>
         <Button
+          onPress={ () => onClickToggle(text) }
           title="Add"
         />
         {
@@ -118,7 +90,9 @@ class TodoContainer extends Component {
             return (
               <Text
                 key={ index }
-                style={ styles.todo }>
+                style={ styles.todo }
+                onPress={ () => onPressToggle(todo) }
+                onLongPress={ () => onLongPressToggle(todo) }>
                 { todo.task } ({ todo.done ? 'Finished': 'Not finished' })
               </Text>
             );
@@ -126,6 +100,32 @@ class TodoContainer extends Component {
         }
       </View>
     );
+
+    // return (
+    //   <View style={styles.container}>
+    //     <Text style={styles.welcome}>
+    //       Welcome to my Todo app!
+    //     </Text>
+    //     <TextInput
+    //       placeholder="Type here to add todo">
+    //       { text }
+    //     </TextInput>
+    //     <Button
+    //       title="Add"
+    //     />
+    //     {
+    //       todos.map((todo, index) => {
+    //         return (
+    //           <Text
+    //             key={ index }
+    //             style={ styles.todo }>
+    //             { todo.task } ({ todo.done ? 'Finished': 'Not finished' })
+    //           </Text>
+    //         );
+    //       })
+    //     }
+    //   </View>
+    // );
 
   }
 }
