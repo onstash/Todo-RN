@@ -70,7 +70,14 @@ class TodoContainer extends Component {
   //   });
   // }
   render() {
-    const { text, todos } = this.props;
+    const {
+      text,
+      todos,
+      onChangeTextHandler,
+      onClickToggle,
+      onPressToggle,
+      onLongPressToggle
+    } = this.props;
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
