@@ -165,7 +165,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(updateText(text));
     },
     onClickToggle: text => {
-      dispatch(addToDo(text));
+      dispatch(addTodo(text));
       dispatch(clearText());
     },
     onPressToggle: todo => {
