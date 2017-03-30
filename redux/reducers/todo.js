@@ -13,7 +13,7 @@ module.exports = (store = initialTodosState, action) => {
     case actionConstants.todo.ADD:
       const todoEntry = {
         task: action.data,
-        id: store.count() + 1,
+        id: store.length + 1,
         createdAt: new Date()
       };
       return [].concat(store, [todoEntry]);
